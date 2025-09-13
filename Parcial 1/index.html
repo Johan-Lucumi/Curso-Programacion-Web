@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grupos de Investigación</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-light">
+    <div class="container py-5">
+      <h1 class="mb-4 text-center text-success fw-bold">
+        Gestión de Grupos de Investigación
+      </h1>
+
+      <div class="row g-4">
+        <!-- ================= SECCIÓN GRUPOS ================= -->
+        <div class="col-md-6">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title text-success">Agregar Grupo</h5>
+              <form id="formGrupo" class="mb-3">
+                <input
+                  type="text"
+                  class="form-control mb-2"
+                  id="nombreGrupo"
+                  placeholder="Nombre del grupo"
+                  required
+                />
+                <input
+                  type="text"
+                  class="form-control mb-2"
+                  id="director"
+                  placeholder="Director"
+                  required
+                />
+                <textarea
+                  class="form-control mb-2"
+                  id="objetivo"
+                  rows="3"
+                  placeholder="Objetivo"
+                ></textarea>
+                <button
+                  type="button"
+                  id="btnCargar"
+                  class="btn btn-success w-100"
+                >
+                  Agregar
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabla Grupos -->
+        <div class="col-md-6">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title text-success">Lista de Grupos</h5>
+              <button
+                id="btnListarGrupos"
+                class="btn btn-outline-success btn-sm mb-2"
+              >
+                Cargar desde servidor
+              </button>
+              <table class="table table-striped align-middle">
+                <thead class="table-success">
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Director</th>
+                    <th>Objetivo</th>
+                  </tr>
+                </thead>
+                <tbody id="tablaGrupos"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= SECCIÓN DOCENTES ================= -->
+        <div class="col-md-6">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title text-success">Registrar Docente</h5>
+              <form id="formDocente">
+                <input
+                  id="nombreDocente"
+                  type="text"
+                  class="form-control mb-2"
+                  placeholder="Nombre docente"
+                  required
+                />
+                <select id="formacionDocente" class="form-select mb-2" required>
+                  <option selected disabled>Formación académica</option>
+                  <option value="básica">Educación básica</option>
+                  <option value="media">Educación media</option>
+                  <option value="técnico">Técnico</option>
+                  <option value="tecnólogo">Tecnólogo</option>
+                  <option value="superior">Educación superior</option>
+                  <option value="postgrado">Postgrado</option>
+                </select>
+                <input
+                  id="fechaHorario"
+                  type="date"
+                  class="form-control mb-2"
+                  required
+                />
+                <input
+                  id="horaHorario"
+                  type="time"
+                  class="form-control mb-2"
+                  required
+                />
+                <select id="grupoDocente" class="form-select mb-3" required>
+                  <option selected disabled>Grupo</option>
+                  <option value="COMBA I+D">COMBA I+D</option>
+                  <option value="GIEIAM">GIEIAM</option>
+                </select>
+                <button type="submit" class="btn btn-success w-100">
+                  Registrar
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabla Docentes -->
+        <div class="col-md-6">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title text-success">Lista de Docentes</h5>
+              <table class="table table-striped align-middle">
+                <thead class="table-success">
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Formación</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Grupo</th>
+                  </tr>
+                </thead>
+                <tbody id="tablaDocentes"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= SECCIÓN ESTUDIANTES ================= -->
+        <div class="col-md-6">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title text-success">Vincular Estudiantes</h5>
+              <form id="formEstudiante">
+                <input
+                  type="text"
+                  id="ccEstudiante"
+                  class="form-control mb-2"
+                  placeholder="CC o TI"
+                  required
+                />
+                <input
+                  type="text"
+                  id="nombreEstudiante"
+                  class="form-control mb-2"
+                  placeholder="Nombre estudiante"
+                  required
+                />
+                <input
+                  type="text"
+                  id="carrera"
+                  class="form-control mb-2"
+                  placeholder="Carrera"
+                  required
+                />
+                <select id="grupoEstudiante" class="form-select mb-3" required>
+                  <option selected disabled>Grupo</option>
+                  <option value="COMBA I+D">COMBA I+D</option>
+                  <option value="GIEIAM">GIEIAM</option>
+                </select>
+                <button type="submit" class="btn btn-success w-100">
+                  Vincular
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabla Estudiantes -->
+        <div class="col-md-6">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title text-success">Lista de Estudiantes</h5>
+              <table class="table table-striped align-middle">
+                <thead class="table-success">
+                  <tr>
+                    <th>CC/TI</th>
+                    <th>Nombre</th>
+                    <th>Carrera</th>
+                    <th>Grupo</th>
+                  </tr>
+                </thead>
+                <tbody id="tablaEstudiantes"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= SECCIÓN ACTIVIDADES ================= -->
+        <div class="col-md-6">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title text-success">Agregar Actividad</h5>
+              <form id="formActividad">
+                <select id="tipoActividad" class="form-select mb-2" required>
+                  <option selected disabled>Tipo de actividad</option>
+                  <option value="Taller">Taller</option>
+                  <option value="Conferencia">Conferencia</option>
+                  <option value="Evento">Evento</option>
+                </select>
+                <input
+                  id="fechaActividad"
+                  type="date"
+                  class="form-control mb-2"
+                  required
+                />
+                <input
+                  id="horaActividad"
+                  type="time"
+                  class="form-control mb-2"
+                  required
+                />
+                <input
+                  id="limite"
+                  type="number"
+                  class="form-control mb-2"
+                  placeholder="Límite de asistentes"
+                  required
+                />
+                <textarea
+                  id="resumen"
+                  class="form-control mb-2"
+                  rows="2"
+                  placeholder="Resumen"
+                ></textarea>
+                <button type="submit" class="btn btn-success w-100">
+                  Agregar
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabla Actividades -->
+        <div class="col-md-6">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title text-success">Lista de Actividades</h5>
+              <table class="table table-striped align-middle">
+                <thead class="table-success">
+                  <tr>
+                    <th>Tipo</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Límite</th>
+                    <th>Resumen</th>
+                  </tr>
+                </thead>
+                <tbody id="tablaActividades"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ================= GRUPOS =================
+      const tablaGrupos = document.getElementById("tablaGrupos");
+      const formGrupo = document.getElementById("formGrupo");
+
+      document.getElementById("btnCargar").addEventListener("click", () => {
+        const nombre = document.getElementById("nombreGrupo").value;
+        const director = document.getElementById("director").value;
+        const objetivo = document.getElementById("objetivo").value;
+
+        if (nombre && director && objetivo) {
+          const fila = `<tr><td>${nombre}</td><td>${director}</td><td>${objetivo}</td></tr>`;
+          tablaGrupos.innerHTML += fila;
+
+          // Limpia el formulario
+          formGrupo.reset();
+        }
+      });
+
+      // GET simulado
+      document
+        .getElementById("btnListarGrupos")
+        .addEventListener("click", async () => {
+          const grupos = [
+            {
+              nombre: "COMBA I+D",
+              director: "Dr. Pérez",
+              objetivo: "Investigación aplicada",
+            },
+            {
+              nombre: "GIEIAM",
+              director: "Dra. Gómez",
+              objetivo: "Estudios ambientales",
+            },
+          ];
+          grupos.forEach((g) => {
+            tablaGrupos.innerHTML += `<tr><td>${g.nombre}</td><td>${g.director}</td><td>${g.objetivo}</td></tr>`;
+          });
+        });
+
+      // ================= DOCENTES =================
+      const formDocente = document.getElementById("formDocente");
+      document
+        .getElementById("formDocente")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const nombre = document.getElementById("nombreDocente").value;
+          const formacion = document.getElementById("formacionDocente").value;
+          const fecha = document.getElementById("fechaHorario").value;
+          const hora = document.getElementById("horaHorario").value;
+          const grupo = document.getElementById("grupoDocente").value;
+
+          // POST simulado
+          await fetch("https://jsonplaceholder.typicode.com/posts", {
+            method: "POST",
+            body: JSON.stringify({ nombre, formacion, fecha, hora, grupo }),
+            headers: { "Content-type": "application/json" },
+          });
+
+          document.getElementById("tablaDocentes").innerHTML += `
+      <tr><td>${nombre}</td><td>${formacion}</td><td>${fecha}</td><td>${hora}</td><td>${grupo}</td></tr>`;
+
+          // Limpia el formulario
+          formDocente.reset();
+        });
+
+      // ================= ESTUDIANTES =================
+      const formEstudiante = document.getElementById("formEstudiante");
+      document
+        .getElementById("formEstudiante")
+        .addEventListener("submit", (e) => {
+          e.preventDefault();
+          const cc = document.getElementById("ccEstudiante").value;
+          const nombre = document.getElementById("nombreEstudiante").value;
+          const carrera = document.getElementById("carrera").value;
+          const grupo = document.getElementById("grupoEstudiante").value;
+
+          document.getElementById("tablaEstudiantes").innerHTML += `
+      <tr><td>${cc}</td><td>${nombre}</td><td>${carrera}</td><td>${grupo}</td></tr>`;
+
+          // Limpia el formulario
+          formEstudiante.reset();
+        });
+
+      // ================= ACTIVIDADES =================
+      const formActividad = document.getElementById("formActividad");
+      document
+        .getElementById("formActividad")
+        .addEventListener("submit", (e) => {
+          e.preventDefault();
+          const tipo = document.getElementById("tipoActividad").value;
+          const fecha = document.getElementById("fechaActividad").value;
+          const hora = document.getElementById("horaActividad").value;
+          const limite = document.getElementById("limite").value;
+          const resumen = document.getElementById("resumen").value;
+
+          document.getElementById("tablaActividades").innerHTML += `
+      <tr><td>${tipo}</td><td>${fecha}</td><td>${hora}</td><td>${limite}</td><td>${resumen}</td></tr>`;
+
+          // Limpia el formulario
+          formActividad.reset();
+        });
+    </script>
+  </body>
+</html>
